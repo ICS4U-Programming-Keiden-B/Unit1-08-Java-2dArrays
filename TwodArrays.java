@@ -32,21 +32,24 @@ public final class TwodArrays {
     public static String[][] genMarks(String[] studNames, String[] assignNames) {
         final Random genRand = new Random();
         String[][] studMarks = new String[studNames.length + 1][assignNames.length + 1];
-        studMarks[0][0] = "Names";
+        studMarks[0][0] = "Names,";
         int nameCount;
         int assignCount;
 
         for (nameCount = 1; nameCount <= studNames.length; nameCount++) {
             studMarks[nameCount][0] = studNames[nameCount - 1];
+            studMarks[nameCount][0] += ",";
         }
         for (assignCount = 1; assignCount <= assignNames.length; assignCount++) {
             studMarks[0][assignCount] = assignNames[assignCount - 1];
+            studMarks[0][assignCount] += ",";
         }
         
         for (nameCount = 1; nameCount <= studNames.length; nameCount++) {
             for (assignCount = 1; assignCount <= assignNames.length; assignCount++) {
                 final int randNum = (int) (genRand.nextGaussian() * 10 + 75);
                 studMarks[nameCount][assignCount] = Integer.toString(randNum);
+                studMarks[nameCount][assignCount] += ",";
             }
         }
         return studMarks;
@@ -61,7 +64,7 @@ public final class TwodArrays {
     public static void main(String[] args) throws Exception {
         final File namePath = new File("./Unit1-08-assignments.txt");
         final File assignPath = new File("./Unit1-08-students.txt");
-        final FileWriter fileOut = new FileWriter("./Unit1-08-output.txt");
+        final FileWriter fileOut = new FileWriter("./Unit1-08-output.csv");
         final Scanner nameGet = new Scanner(namePath);
         final Scanner assignGet = new Scanner(assignPath);
 
@@ -85,7 +88,6 @@ public final class TwodArrays {
         for (int printN = 0; printN <= allNames.length; printN++) {
             for (int printA = 0; printA <= allAssigns.length; printA++) {
                 fileOut.write(allMarks[printN][printA]);
-                fileOut.write("    ");
             }
             fileOut.write("\n");
         }
